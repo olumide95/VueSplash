@@ -4,10 +4,12 @@
 <!--  search box -->
 <div class="main">
     <div class="search">
+        <form @submit.prevent="Search">
         <div class="form-group has-search">
             <span class="fa fa-search form-control-feedback"></span>
-            <input type="text" class="form-control" placeholder="Search for photo">
+            <input type="text" v-model="query" class="form-control" placeholder="Search for photo">
         </div>
+        </form>
     </div>
 </div>
  </div>
@@ -16,12 +18,27 @@
 <script>
 export default {
   name: 'searchBar',
- 
+    
+  data(){
+      return {
+          query:''
+      }
+  },
+
+    methods:{
+
+        Search(){
+           
+            this.$router.push("/search?q="+this.query);
+        }
+    }
+
+
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style >
 /* Styles for wrapping the search box */
 
 .main {

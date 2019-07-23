@@ -1,19 +1,20 @@
 <template>
       
 <!-- BEGIN: card -->
-        <div class="imagecard" data-effect="zoom">
+        <div class="imagecard" data-effect="zoom" >
         
             <figure  class="card__image">
-            <img src="https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="Short description">
+            <img :src="image" alt="Short description">
             </figure>
 
             <div class="card__body">
             
-            <p class="card__bio">Jordan Okeke.</p>
+            <p class="card__bio">{{name}}</p>
             </div>
             <div class="card__footer">
-            <p class="card__date">Pretoria, South Africa</p>
-            <p class=""></p>
+                <br>
+            <span class="card__date">{{location}}</span>
+           
             </div>
 
         </div>
@@ -24,7 +25,20 @@
 <script>
 export default {
   name: 'Gallery',
- 
+ props:{
+     image: {
+      type: String,
+      required: true
+    },
+     name: {
+      type: String,
+      required: true
+    },
+     location: {
+      type: String,
+
+    },
+ }
 }
 </script>
 
@@ -41,13 +55,13 @@ export default {
   display: block;
   width: 100%;
   max-width: 250px;
-  height: 400px;
   font-size: var(--fontOrigin);
   border-radius: 8px;
   box-shadow: 0 16px 60px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   -webkit-transition: all var(--speed) ease;
   transition: all var(--speed) ease;
+  
 }
 
 .imagecard:hover {
@@ -59,7 +73,7 @@ export default {
 
 
 .card__image {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -70,7 +84,18 @@ export default {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 8), rgba(0, 0, 0, 0.8));
   
 }
-
+.card__image:after {
+    content: '\A';
+    position: absolute;
+    width: 100%; height:100%;
+    top:0; left:0;
+     background: linear-gradient(
+    rgba(0, 0, 0, .5),
+    rgba(0, 0, 0, .1)), 100% / cover fixed;
+    opacity: 1;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+}
 .card__image img {
   
   -webkit-transform: scale(1.3, 1.3);
@@ -79,14 +104,13 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1;
   
 }
 
 
 
 .card__body {
-  display: grid;
+ margin-top: -50%;
   padding: 0 20px;
 }
 
@@ -98,9 +122,9 @@ export default {
   -webkit-transform: translateY(30%);
   transform: translateY(30%);
   display: block;
-  margin: 340px 0 0 0;
+  margin-top: -80px;
   font-size: var(--fontMedium);
-  font-weight: var(--fontLight);
+  font-weight: var(--fontRegular);
   /*text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.35);*/
   color: rgba(255, 255, 255, 0.9);
   opacity: 1;
@@ -134,14 +158,15 @@ export default {
 }
 
 .card__date {
+  margin-top:-10%;
   grid-area: date;
   display: inline-block;
   align-self: left;
   justify-self: left;
   font-size: var(--fontSmall);
-  font-weight: var(--fontLight);
-  text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.45);
-  color: rgba(250, 250, 250, 0.8);
+  font-weight: var(--fontRegular);
+  text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.2);
+  color: rgba(250, 250, 250);
 }
 
 /* MODIFIERS */

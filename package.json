@@ -14,7 +14,9 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.7"
+    "vue-images-loaded": "^1.1.2",
+    "vue-router": "^3.0.7",
+    "vue-skeleton-loading": "^1.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",

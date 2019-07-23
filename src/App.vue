@@ -1,21 +1,14 @@
 <template>
   <div id="app">
-  
-    <SearchBar />
-    <Gallery />
+   <router-view/>
   </div>
 </template>
 
 <script>
 
-import SearchBar from './components/SearchBar.vue'
-import Gallery from './components/Gallery.vue'
 
 export default {
   name: 'app',
-  components: {
-    SearchBar,Gallery
-  }
 }
 </script>
 

@@ -4,8 +4,9 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import router from './router'
 import api from './api'
+import VueSkeletonLoading from 'vue-skeleton-loading';
 Object.defineProperty(Vue.prototype, '$api', { value: api });
-
+Vue.use(VueSkeletonLoading);
 Vue.config.productionTip = false
 
 new Vue({

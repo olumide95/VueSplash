@@ -1,11 +1,11 @@
 <template>
- <div>
- <SearchBar />
+<div>
+ <ResultBar :query="query"/>
 <section class="gallery">
 
   <div class="row">
-    <div v-if="!loading"  class="col-md-4" v-for="image in images" :key="image.id">
-      <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular" />
+    <div v-if="!loading"  class="col-md-4" v-for="image in images" :key="image.id" >
+      <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular" v-cloak/>
       
     </div>
     
@@ -18,20 +18,21 @@
 </template>
 
 <script>
-import SearchBar from './SearchBar.vue'
+import ResultBar from './ResultBar.vue';
 import ImageCard from './ImageCard.vue';
 import Placeholder from './Placeholder.vue';
 import axios from 'axios';
 export default {
   name: 'Gallery',
   components:{
-    ImageCard,Placeholder,SearchBar
+    ImageCard,Placeholder,ResultBar
   },
   data(){
     return {
       API: 'https://api.unsplash.com/',
       ACCESS_KEY: 'bb4b552fa6df0336cce8a2bcb5b4abdbcc4ca92b80082f1ac0e807e998e185c4',
       images:[],
+      query:this.$route.query.q,
       loading:true
     }
   },
@@ -39,15 +40,17 @@ export default {
   mounted(){
 
     this.getImages();
-
+    window.addEventListener('load', () => {
+        
+    })
   },
   methods:{
     
     getImages(){
-       axios.get(this.API+'/photos?client_id='+this.ACCESS_KEY)
+       axios.get(this.API+'/search/photos?query='+this.query+'&per_page=20&client_id='+this.ACCESS_KEY)
                 .then(response => {
                   console.log(response.data);
-                  this.images = response.data;
+                  this.images = response.data.results;
                   this.loading = false;
                 })
                 .catch(e => {
@@ -62,7 +65,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
+[v-cloak] {
+  display: none;
+}
 /* GLOBAL VARIABLES */
 :root {
   --font: "Roboto", sans-serif;
