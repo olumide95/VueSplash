@@ -5,7 +5,7 @@
 
   <div class="row">
     <div class="col-md-4" v-for="image in images" :key="image.id" >
-      <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular" v-cloak/>
+      <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular"/>
       
     </div>  
  

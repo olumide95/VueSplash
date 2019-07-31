@@ -1,10 +1,10 @@
 <template>
-      
+<div>
 <!-- BEGIN: card -->
-        <div class="imagecard" data-effect="zoom" >
+        <div class="imagecard" data-effect="zoom" v-images-loaded:on.progress="loading" v-show="!isLoading">
         
             <figure  class="card__image">
-            <img :src="image" alt="Short description">
+            <img :src="image"  alt="Short description" >
             </figure>
 
             <div class="card__body">
@@ -19,33 +19,57 @@
 
         </div>
 
-      
+        
   <!-- END: card -->
+<Placeholder v-if="isLoading" :height="height"/>
 
+</div>
 </template>
 
 <script>
 
 import Placeholder from './Placeholder.vue';
+import imagesLoaded from 'vue-images-loaded'
 export default {
+  directives: {
+        imagesLoaded
+    },
   components:{
     Placeholder
   },
+  data(){
+    return{
+      height:'100px',
+      isLoading: true
+    }
+  },
   name: 'Gallery',
- props:{
-     image: {
-      type: String,
-      required: true
-    },
-     name: {
-      type: String,
-      required: true
-    },
-     location: {
-      type: String,
+    props:{
+        image: {
+          type: String,
+          required: true
+        },
+        name: {
+          type: String,
+          required: true
+        },
+        location: {
+          type: String,
 
+        },
     },
- }
+
+    methods: {
+       async loading(instance, image ) {
+            if(image.isLoaded){
+              this.isLoading= false;
+            
+            }
+            this.height = image.img.height/5.3+'px';
+         
+       },
+        
+    },
 }
 </script>
 
@@ -163,8 +187,9 @@ export default {
   opacity: 1;
 }
 
+
 .card__date {
-  margin-top:-10%;
+  margin-top:-8%;
   grid-area: date;
   display: inline-block;
   align-self: left;

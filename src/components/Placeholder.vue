@@ -2,12 +2,11 @@
 
    <div class="skeleton-container">
      <skeleton-loading >
-            <row :gutter="{top: '250px'}">
+            <row :gutter="{top: height}">
               <square-skeleton 
                     :count="1"
                     :boxProperties="{
                         bottom: '0px',
-                        height: '10px',
                         width: '100px'
 
                     }" 
@@ -18,7 +17,6 @@
                     :boxProperties="{
                       top: '10px',
                         bottom: '0px',
-                        height: '10px',
                         width: '50px'
 
                     }" 
@@ -36,7 +34,11 @@
 
 export default {
   name: 'Placeholder',
- 
+  props:{
+    height:{
+      type: String,
+    }
+  }
 }
 </script>
 
