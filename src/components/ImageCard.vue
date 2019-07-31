@@ -18,12 +18,19 @@
             </div>
 
         </div>
+
+      
   <!-- END: card -->
 
 </template>
 
 <script>
+
+import Placeholder from './Placeholder.vue';
 export default {
+  components:{
+    Placeholder
+  },
   name: 'Gallery',
  props:{
      image: {
@@ -110,7 +117,6 @@ export default {
 
 
 .card__body {
- margin-top: -50%;
   padding: 0 20px;
 }
 

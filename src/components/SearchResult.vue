@@ -4,12 +4,10 @@
 <section class="gallery">
 
   <div class="row">
-    <div v-if="!loading"  class="col-md-4" v-for="image in images" :key="image.id" >
+    <div class="col-md-4" v-for="image in images" :key="image.id" >
       <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular" v-cloak/>
       
-    </div>
-    
-    <Placeholder v-if="loading"  v-for="index in 6" :key="index"/>  
+    </div>  
  
   </div>
  

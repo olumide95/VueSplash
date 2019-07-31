@@ -1,5 +1,5 @@
 <template>   
-<div class="col-md-4" >
+
    <div class="skeleton-container">
      <skeleton-loading >
             <row :gutter="{top: '250px'}">
@@ -28,7 +28,7 @@
           
         </skeleton-loading>
       </div>
-        </div>
+        
 
 </template>
 
