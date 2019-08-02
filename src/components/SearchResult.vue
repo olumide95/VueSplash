@@ -4,7 +4,7 @@
 <section class="gallery">
 
   <div class="row">
-    <div class="col-md-4" v-for="image in images" :key="image.id" >
+    <div class="col-md-4" v-on:click="showImage(image.urls.full,image.user.first_name+' '+image.user.last_name,image.user.location)" v-for="image in images" :key="image.id" >
       <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular"/>
       
     </div>  
@@ -12,6 +12,27 @@
   </div>
  
 </section>
+
+<modal  width="800px" height="500px" name="login-modal" @opened="modalOpened" @before-close="beforeClose">
+
+<div class="row">
+<div class="col-md-12">
+<img :src="currentImage" class="modal__image">
+
+</div>
+<div class="col-md-12">
+<diV class="image__details">
+<h1 > {{imageName}} </h1>
+<p>{{imageLocation}}</p>
+</diV>
+
+
+</div>
+
+</div>
+
+</modal>
+<i class="fa fa-times closemodal" v-show="modalOpen"></i>
 </div>
 </template>
 
@@ -31,19 +52,32 @@ export default {
       ACCESS_KEY: 'bb4b552fa6df0336cce8a2bcb5b4abdbcc4ca92b80082f1ac0e807e998e185c4',
       images:[],
       query:this.$route.query.q,
-      loading:true
+      loading:true,
+      currentImage:'',
+      imageName:'',
+      imageLocation:'',
+      modalOpen:false
     }
   },
 
   mounted(){
 
     this.getImages();
-    window.addEventListener('load', () => {
-        
-    })
+    
   },
   methods:{
-    
+    modalOpened(event){
+      this.modalOpen = true
+    },
+     beforeClose (event) {
+    this.modalOpen = false
+    },
+    showImage(image,name,location){
+      this.currentImage = image
+      this.imageName = name
+      this.imageLocation = location
+      this.$modal.show('login-modal');
+    },
     getImages(){
        axios.get(this.API+'/search/photos?query='+this.query+'&per_page=20&client_id='+this.ACCESS_KEY)
                 .then(response => {
@@ -116,10 +150,40 @@ body {
   font-smoothing: subpixel-antialiased;
 }
 
+.closemodal{
+right: 12%;
+top: 7%;
+position: absolute;
+z-index: 100000;
+color: white;
+}
+.modal__image{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  
+}
+
+.image__details{
+  margin:2% 5%;
+}
+
+.image__details > h1{
+  font-size:25px
+}
+
+.image__details > p{
+  font-style:bolder
+}
 .gallery {
 margin-top: -2%;
 margin-left: 20%;
 margin-right: 20%;
 }
+
+.v--modal-overlay .v--modal-box {
+    border-radius: 10px;
+}
+
 
 </style>

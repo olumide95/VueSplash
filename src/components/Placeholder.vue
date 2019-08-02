@@ -34,9 +34,16 @@
 
 export default {
   name: 'Placeholder',
+  data(){
+    return{
+
+    
+    }
+  },
   props:{
     height:{
       type: String,
+      required:true
     }
   }
 }

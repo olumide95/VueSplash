@@ -39,7 +39,7 @@ export default {
   },
   data(){
     return{
-      height:'100px',
+      height:'',
       isLoading: true
     }
   },
@@ -60,12 +60,16 @@ export default {
     },
 
     methods: {
-       async loading(instance, image ) {
+        loading(instance, image ) {
             if(image.isLoaded){
               this.isLoading= false;
             
             }
-            this.height = image.img.height/5.3+'px';
+            if(this.height == ''){
+              this.height = image.img.height/5.3+'px';
+              
+            }
+            
          
        },
         
