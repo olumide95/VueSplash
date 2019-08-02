@@ -1,22 +1,21 @@
 import Vue from "vue";
-import Gallery from './components/Gallery';
-import SearchResult from './components/SearchResult';
-import VueRouter from 'vue-router';
+import Landing from "./components/Landing";
+import SearchResult from "./components/SearchResult";
+import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 export default new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes: [{
-            path: '/',
-            name: 'home',
-            component: Gallery
+            path: "/",
+            name: "home",
+            component: Landing
         },
 
         {
-            path: '/search',
-            name: 'search',
+            path: "/search",
+            name: "search",
             component: SearchResult
         }
-    ],
-
+    ]
 });

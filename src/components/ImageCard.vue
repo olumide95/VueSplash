@@ -1,27 +1,27 @@
 <template>
 <div>
 <!-- BEGIN: card -->
-        <div class="imagecard" data-effect="zoom" v-images-loaded:on.progress="loading" v-show="!isLoading">
-        
-            <figure  class="card__image">
-            <img :src="image"  alt="Short description" >
-            </figure>
+  <div class="imagecard" data-effect="zoom" v-images-loaded:on.progress="loading" v-show="!isLoading" >
+  
+      <figure  class="card__image">
+      <img :src="image"  alt="Short description" >
+      </figure>
 
-            <div class="card__body">
-            
-            <p class="card__bio">{{name}}</p>
-            </div>
-            <div class="card__footer">
-                <br>
-            <span class="card__date">{{location}}</span>
-           
-            </div>
+      <div class="card__body">
+      
+      <p class="card__bio">{{name}}</p>
+      </div>
+      <div class="card__footer">
+          <br>
+      <span class="card__date">{{location}}</span>
+      
+      </div>
 
-        </div>
+  </div>
 
         
   <!-- END: card -->
-<Placeholder v-if="isLoading" :height="height"/>
+<Placeholder v-show="isLoading" :height="height"/>
 
 </div>
 </template>
@@ -39,7 +39,7 @@ export default {
   },
   data(){
     return{
-      height:'',
+      height:'130px',
       isLoading: true
     }
   },
@@ -66,8 +66,7 @@ export default {
             
             }
             if(this.height == ''){
-              this.height = image.img.height/5.3+'px';
-              
+              this.height = (image.img.height/5.3)+'px';   
             }
             
          

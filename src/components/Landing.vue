@@ -1,38 +1,23 @@
 <template>
  <div>
  <SearchBar />
-<section class="gallery">
+<ImageGallery :images="images"/>
 
-  <div class="row">
-    <div v-if="!loading"  class="col-md-4" v-for="image in images" :key="image.id">
-      <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular" />
-      
-    </div>
-    
-    <Placeholder v-if="loading"  v-for="index in 6" :key="index"/>  
- 
-  </div>
- 
-</section>
 </div>
 </template>
 
 <script>
 import SearchBar from './SearchBar.vue'
-import ImageCard from './ImageCard.vue';
-import Placeholder from './Placeholder.vue';
-import axios from 'axios';
+import ImageGallery from './ImageGallery.vue';
 export default {
-  name: 'Gallery',
+  name: 'Landing',
   components:{
-    ImageCard,Placeholder,SearchBar
+    SearchBar,ImageGallery
   },
   data(){
     return {
-      API: 'https://api.unsplash.com/',
-      ACCESS_KEY: 'bb4b552fa6df0336cce8a2bcb5b4abdbcc4ca92b80082f1ac0e807e998e185c4',
       images:[],
-      loading:true
+      
     }
   },
 
@@ -44,14 +29,13 @@ export default {
   methods:{
     
     getImages(){
-       axios.get(this.API+'/photos?client_id='+this.ACCESS_KEY)
+       this.$api.GET('/search/photos?page=1&query=African&per_page=8')
                 .then(response => {
-                  console.log(response.data);
-                  this.images = response.data;
-                  this.loading = false;
+                  console.log(response);
+                  this.images = response.results;
                 })
                 .catch(e => {
-                   console.log(e.response.data);
+                   console.log(e.response);
                 });
     }
     
@@ -113,10 +97,6 @@ body {
   font-smoothing: subpixel-antialiased;
 }
 
-.gallery {
-margin-top: -2%;
-margin-left: 20%;
-margin-right: 20%;
-}
+
 
 </style>
