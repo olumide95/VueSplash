@@ -1,4 +1,4 @@
-# cowrywise
+# VueJS app for image search using Unsplash's API
 
 ## Project setup
 ```
