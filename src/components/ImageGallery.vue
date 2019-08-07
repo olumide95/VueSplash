@@ -4,7 +4,7 @@
 
   <div class="row">
     <div class="col-md-4" v-on:click="showImage(image.urls.full,image.user.first_name+' '+image.user.last_name,image.user.location)" v-for="image in images" :key="image.id" >
-      <ImageCard  :name="image.user.first_name+' '+image.user.last_name" :location="image.user.location" :image="image.urls.regular"/>
+      <ImageCard  :name="getName(image.user)" :location="image.user.location" :image="image.urls.regular" :width="image.width" :height="image.height"/>
       
     </div>  
  
@@ -46,7 +46,10 @@ export default {
       this.imageName = name
       this.imageLocation = location
       this.$modal.show('modal');
-    },
+      },
+      getName(user){
+          return user.first_name+' '+ ((user.last_name) ? user.last_name : '');
+      }
   },
   
  

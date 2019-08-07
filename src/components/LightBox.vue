@@ -1,12 +1,15 @@
 <template>
 <div>
-<modal  width="900px" height="600px" name="modal" @opened="modalOpened" @before-close="beforeClose" :clickToClose="false">
 
+
+<modal  width="1000px" height="650px" name="modal" @opened="modalOpened" @before-close="beforeClose" :clickToClose="false">
+ <loading :active.sync="isLoading" :is-full-page="false" color="#2c3e50"></loading>
       <div class="row">
 
         <div class="col-md-12">
-          <img :src="currentImage" class="modal__image">
-
+        
+          <img :src="currentImage" class="modal__image" v-images-loaded:on.progress="loading" v-show="!isLoading">
+          <div class="modal__image" v-show="isLoading"> </div>
         </div>
 
         <div class="col-md-12">
@@ -24,12 +27,19 @@
 </template>
 
 <script>
-
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
+import imagesLoaded from 'vue-images-loaded'
 export default {
   name: 'LightBox',
+  directives: {  imagesLoaded  },
+  components:{  Loading },
   data(){
       return {
-           modalOpen:false
+          isLoading: true,
+          modalOpen:false
       }
   },
   props:{
@@ -48,10 +58,17 @@ export default {
   },
   methods:{
     modalOpened(event){
-      this.modalOpen = true
+      this.modalOpen = true;
+      this.isLoading= true;
     },
      beforeClose (event) {
-    this.modalOpen = false
+    this.modalOpen = false;
+    },
+    loading(instance, image ) {
+        if(image.isLoaded){
+            this.isLoading= false;
+        
+        }   
     },
     
   }
@@ -63,14 +80,14 @@ export default {
 <style>
 
 .closemodal{
-right: 12%;
-top: 4%;
+right: 10%;
+top: 2%;
 position: fixed;
 z-index: 10000;
 }
 .modal__image{
   width: 100%;
-  height: 500px;
+  height: 550px;
   object-fit: cover;
   
 }

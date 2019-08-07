@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- BEGIN: card -->
-  <div class="imagecard" data-effect="zoom" v-images-loaded:on.progress="loading" v-show="!isLoading" >
+  <div class="imagecard" data-effect="zoom"  v-images-loaded:on.progress="loading" v-show="!isLoading">
   
       <figure  class="card__image">
       <img :src="image"  alt="Short description" >
@@ -21,7 +21,7 @@
 
         
   <!-- END: card -->
-<Placeholder v-show="isLoading" :height="height"/>
+<Placeholder v-show="isLoading" :height="placeholderHeight"/>
 
 </div>
 </template>
@@ -39,8 +39,7 @@ export default {
   },
   data(){
     return{
-      height:'130px',
-      isLoading: true
+      isLoading: true,
     }
   },
   name: 'Gallery',
@@ -55,20 +54,27 @@ export default {
         },
         location: {
           type: String,
-
         },
+        height: {
+          type: Number,
+        },
+        width: {
+          type: Number,
+        }
     },
-
+    computed:{
+      placeholderHeight(){
+        let factor = (this.width/this.height) *50
+        console.log((this.height/factor).toFixed(2)+'px'); 
+        return (this.height/20).toFixed(2)+'px'; 
+      }
+    },
     methods: {
         loading(instance, image ) {
             if(image.isLoaded){
               this.isLoading= false;
             
             }
-            if(this.height == ''){
-              this.height = (image.img.height/5.3)+'px';   
-            }
-            
          
        },
         
