@@ -1,4 +1,4 @@
-# VueJS app for image search using Unsplash's API
+# VueJS app for image search using Unsplash API
 
 ## Project setup
 ```
